@@ -6,15 +6,16 @@
 
 Write-Host "#####################################" -ForegroundColor Cyan 
 Write-Host "### " -F Cyan -NoNewline; `
-Write-Host "Rognli Checksum Tool | v2.3 |" -F Yellow -NoNewline; `
+Write-Host "Rognli Checksum Tool | v2.4 |" -F Yellow -NoNewline; `
 Write-Host " ###" -F Cyan
 Write-Host "#####################################" -ForegroundColor Cyan
 Write-Host ""
 Write-Host ""
 
 # Manual or Compare selection
-Write-Host " Do you wish to (C)ompare two files or (M)anually input the hash? " -F Yellow -NoNewline; $UserSelection = Read-Host
-Write-Host ""
+
+    Do { Write-Host " Do you wish to (C)ompare two files or (M)anually input the hash? " -F Yellow -NoNewline; $UserSelection = Read-Host }
+    While (( $UserSelection -notlike "M" ) -and ($UserSelection -notlike "C"))
 
 # Compare hashes between two files
 
@@ -22,14 +23,15 @@ If ($UserSelection -eq 'C') {
 
 # Fetch, validate and trim the source file path
 
-    Do { Write-Host " Input path to source file: " -F Yellow -NoNewline; $SourceFilePath = Read-Host }
+    Do { Write-Host " Input path to source file (within quotation marks): " -F Yellow -NoNewline; $SourceFilePath = Read-Host }
     While (( $SourceFilePath -Like '') -or ( Test-Path -Path $SourceFilePath -IsValid ))
     $SourceFile = $SourceFilePath -Replace '"', ''  
+    
     Write-Host ""
 
 # Fetch, validate and trim the comparison file path
 
-    Do { Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
+    Do { Write-Host " Input path to comparison file (within quotation marks): " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
     While (( $CompareFilePath -Like '' ) -or ( Test-Path -Path $CompareFilePath -IsValid ))
     $CompareFile = $CompareFilePath -Replace '"', ''
     Write-Host ""
@@ -54,7 +56,7 @@ If ($UserSelection -eq 'M') {
 
 # Fetch, validate and trim the comparison file path
 
-    Do { Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
+    Do { Write-Host " Input path to comparison file (within quotation marks): " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
     While (( $CompareFilePath -Like '' ) -or ( Test-Path -Path $CompareFilePath -IsValid ))
     $CompareFile = $CompareFilePath -Replace '"', ''
     Write-Host ""
