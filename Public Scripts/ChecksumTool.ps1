@@ -6,8 +6,8 @@
 
 Write-Host "#####################################" -ForegroundColor Cyan 
 Write-Host "### " -F Cyan -NoNewline; `
-Write-Host "Rognli Checksum Tool | v2.1 |" -F Yellow -NoNewline; `
-Write-Host " ###" -F Cyan
+    Write-Host "Rognli Checksum Tool | v2.1 |" -F Yellow -NoNewline; `
+    Write-Host " ###" -F Cyan
 Write-Host "#####################################" -ForegroundColor Cyan
 Write-Host ""
 Write-Host ""
@@ -18,32 +18,33 @@ Write-Host ""
 
 # Compare hashes between two files
 
-if ($UserSelection -eq 'C')
-{ 
-    Write-Host " Input path to source file: " -F Yellow -NoNewline; $SourceFilePath = Read-Host
-    $SourceFile = $SourceFilePath -replace '"', ''
+If ($UserSelection -eq 'C') { 
+    Do { Write-Host " Input path to source file: " -F Yellow -NoNewline; $SourceFilePath = Read-Host }
+    While ($SourceFilePath -Like '')
+    $SourceFile = $SourceFilePath -Replace '"', ''
     Write-Host ""
-    Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host
-    $CompareFile = $CompareFilePath -replace '"', ''
+    Do { Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
+    While ($CompareFilePath -Like '')
+    $CompareFile = $CompareFilePath -Replace '"', ''
     Write-Host ""
-    if (( Get-FileHash $SourceFile ).Hash -eq (Get-FileHash $CompareFile).Hash )
-    {  Write-host "The file hash is correct. The file is safe to use." -F Green }
-    else
+    If (( Get-FileHash $SourceFile ).Hash -eq (Get-FileHash $CompareFile).Hash )
+    { Write-host "The file hash is correct. The file is safe to use." -F Green }
+    Else
     { Write-Host "The file hash is a mismatch. Do NOT use this file." -F Red }
 }
 
 # Manual hash input comparison
 
-if ($UserSelection -eq 'M')
-{ 
-    Write-Host " Input source hash: " -F Yellow -NoNewline; $SourceHash = Read-Host
+If ($UserSelection -eq 'M') { 
+    Do { Write-Host " Input source hash: " -F Yellow -NoNewline; $SourceHash = Read-Host }
+    While ($SourceHash -Like '')
     Write-Host ""
     Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host
-    $CompareFile = $CompareFilePath -replace '"', ''
+    $CompareFile = $CompareFilePath -Replace '"', ''
     Write-Host ""
-    if (( Get-FileHash $CompareFile ).Hash -eq $SourceHash )
-    {  Write-host "The file hash is correct. The file is safe to use." -F Green }
-    else
+    If (( Get-FileHash $CompareFile ).Hash -eq $SourceHash )
+    { Write-host "The file hash is correct. The file is safe to use." -F Green }
+    Else
     { Write-Host "The file hash is a mismatch. Do NOT use this file." -F Red }
 }
 
@@ -52,12 +53,12 @@ if ($UserSelection -eq 'M')
 Write-Host ""
 $Prompt = "Do you wish to (E)xit or (R)eturn? "
 
-do {
+Do {
     Write-Host $Prompt -F Cyan -NoNewline; $ExitChoice = Read-Host
-    if ($ExitChoice -eq 'R')
-    {Return}
-    if ($ExitChoice -eq 'E')
-    {Exit}
-} while ( 
+    If ($ExitChoice -eq 'R')
+    { Return }
+    If ($ExitChoice -eq 'E')
+    { Exit }
+} While ( 
     $ExitChoice -ne 'R' -or 'E'
 )
