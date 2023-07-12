@@ -50,5 +50,5 @@ if ($UserSelection -eq 'M')
 # End the script
 
 Write-Host ""
-Write-Host "Press enter to exit..." -ForegroundColor Cyan -NoNewline; Read-Host
-Exit
+Write-Host "Press enter to end script..." -ForegroundColor Cyan -NoNewline; Read-Host
+Return
