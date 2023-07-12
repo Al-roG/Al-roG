@@ -49,6 +49,7 @@ if ($UserSelection -eq 'M')
 
 # End the script
 
+Write-Host ""
 $Prompt = "Do you wish to (E)xit or (R)eturn? "
 
 do {
