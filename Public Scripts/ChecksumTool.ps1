@@ -4,11 +4,11 @@
 # If you wish you compare a file towards a pre-fetched hash, select Manual input.
 
 
-Write-Host "###############################" -ForegroundColor Cyan 
+Write-Host "#####################################" -ForegroundColor Cyan 
 Write-Host "### " -F Cyan -NoNewline; `
-Write-Host "Rognli Checksum Tool v2" -F Yellow -NoNewline; `
+Write-Host "Rognli Checksum Tool | v2.1 |" -F Yellow -NoNewline; `
 Write-Host " ###" -F Cyan
-Write-Host "###############################" -ForegroundColor Cyan
+Write-Host "#####################################" -ForegroundColor Cyan
 Write-Host ""
 Write-Host ""
 
