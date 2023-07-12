@@ -6,8 +6,8 @@
 
 Write-Host "#####################################" -ForegroundColor Cyan 
 Write-Host "### " -F Cyan -NoNewline; `
-    Write-Host "Rognli Checksum Tool | v2.2 |" -F Yellow -NoNewline; `
-    Write-Host " ###" -F Cyan
+Write-Host "Rognli Checksum Tool | v2.2 |" -F Yellow -NoNewline; `
+Write-Host " ###" -F Cyan
 Write-Host "#####################################" -ForegroundColor Cyan
 Write-Host ""
 Write-Host ""
