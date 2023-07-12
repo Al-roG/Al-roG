@@ -19,14 +19,23 @@ Write-Host ""
 # Compare hashes between two files
 
 If ($UserSelection -eq 'C') { 
+
+# Fetch, validate and trim the source file path
+
     Do { Write-Host " Input path to source file: " -F Yellow -NoNewline; $SourceFilePath = Read-Host }
-    While ($SourceFilePath -Like '')
-    $SourceFile = $SourceFilePath -Replace '"', ''
+    While (( $SourceFilePath -Like '') -or ( Test-Path -Path $SourceFilePath -IsValid ))
+    $SourceFile = $SourceFilePath -Replace '"', ''  
     Write-Host ""
+
+# Fetch, validate and trim the comparison file path
+
     Do { Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
-    While ($CompareFilePath -Like '')
+    While (( $CompareFilePath -Like '' ) -or ( Test-Path -Path $CompareFilePath -IsValid ))
     $CompareFile = $CompareFilePath -Replace '"', ''
     Write-Host ""
+
+# Execute the hash comparison 
+
     If (( Get-FileHash $SourceFile ).Hash -eq (Get-FileHash $CompareFile).Hash )
     { Write-host "The file hash is correct. The file is safe to use." -F Green }
     Else
@@ -36,12 +45,22 @@ If ($UserSelection -eq 'C') {
 # Manual hash input comparison
 
 If ($UserSelection -eq 'M') { 
+
+# Fetch and measure the manual source hash
+
     Do { Write-Host " Input source hash: " -F Yellow -NoNewline; $SourceHash = Read-Host }
-    While ($SourceHash -Like '')
+    While (( $SourceHash -Like '' ) -or ( $SourceHash.Length -lt 64 ))
     Write-Host ""
-    Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host
+
+# Fetch, validate and trim the comparison file path
+
+    Do { Write-Host " Input path to comparison file: " -F Yellow -NoNewline; $CompareFilePath = Read-Host }
+    While (( $CompareFilePath -Like '' ) -or ( Test-Path -Path $CompareFilePath -IsValid ))
     $CompareFile = $CompareFilePath -Replace '"', ''
     Write-Host ""
+
+# Execute the hash comparison
+
     If (( Get-FileHash $CompareFile ).Hash -eq $SourceHash )
     { Write-host "The file hash is correct. The file is safe to use." -F Green }
     Else
