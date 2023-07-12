@@ -50,5 +50,10 @@ if ($UserSelection -eq 'M')
 # End the script
 
 Write-Host ""
-Write-Host "Press enter to exit..." -ForegroundColor Cyan -NoNewline; Read-Host
-Exit
+Write-Host "Do you wish to (E)xit or (R)eturn? " -ForegroundColor Cyan -NoNewline; $ExitChoice = Read-Host
+
+if ($ExitChoice -eq 'R')
+{Return}
+if ($ExitChoice -eq 'E')
+{Exit}
+else { Write-Host "You didn't select a valid action. Returning..." }
