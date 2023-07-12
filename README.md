@@ -1,7 +1,9 @@
 # About
 Writing Powershell scripts for fun!
+
 I will periodically put up some generic scripts in my public repo.
 
+Check in from time to time ;-)
 
 # Credits
 If you found a specific script useful, please let me know.
