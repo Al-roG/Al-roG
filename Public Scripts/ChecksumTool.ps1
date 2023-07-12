@@ -1,3 +1,5 @@
+# A simple tool to make sure the checksum hasn't been altered
+
 Write-Host "############################" -ForegroundColor Cyan 
 Write-Host "### " -F Cyan -NoNewline; `
 Write-Host "Rognli Checksum Tool" -F Yellow -NoNewline; `
