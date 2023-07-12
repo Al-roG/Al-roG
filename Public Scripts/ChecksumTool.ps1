@@ -27,9 +27,9 @@ if ($UserSelection -eq 'C')
     $CompareFile = $CompareFilePath -replace '"', ''
     Write-Host ""
     if (( Get-FileHash $SourceFile ).Hash -eq (Get-FileHash $CompareFile).Hash )
-    {  Write-host "The file hash is correct. The file is safe to use." -ForegroundColor Green }
+    {  Write-host "The file hash is correct. The file is safe to use." -F Green }
     else
-    { Write-Host "The file hash is a mismatch. Do NOT use this file." -ForegroundColor Red }
+    { Write-Host "The file hash is a mismatch. Do NOT use this file." -F Red }
 }
 
 # Manual hash input comparison
@@ -42,18 +42,21 @@ if ($UserSelection -eq 'M')
     $CompareFile = $CompareFilePath -replace '"', ''
     Write-Host ""
     if (( Get-FileHash $CompareFile ).Hash -eq $SourceHash )
-    {  Write-host "The file hash is correct. The file is safe to use." -ForegroundColor Green }
+    {  Write-host "The file hash is correct. The file is safe to use." -F Green }
     else
-    { Write-Host "The file hash is a mismatch. Do NOT use this file." -ForegroundColor Red }
+    { Write-Host "The file hash is a mismatch. Do NOT use this file." -F Red }
 }
 
 # End the script
 
-Write-Host ""
-Write-Host "Do you wish to (E)xit or (R)eturn? " -ForegroundColor Cyan -NoNewline; $ExitChoice = Read-Host
+$Prompt = "Do you wish to (E)xit or (R)eturn? "
 
-if ($ExitChoice -eq 'R')
-{Return}
-if ($ExitChoice -eq 'E')
-{Exit}
-else { Write-Host "You didn't select a valid action. Returning..." }
+do {
+    Write-Host $Prompt -F Cyan -NoNewline; $ExitChoice = Read-Host
+    if ($ExitChoice -eq 'R')
+    {Return}
+    if ($ExitChoice -eq 'E')
+    {Exit}
+} while ( 
+    $ExitChoice -ne 'R' -or 'E'
+)
