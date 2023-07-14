@@ -6,7 +6,7 @@
 
 Write-Host "#####################################" -ForegroundColor Cyan 
 Write-Host "### " -F Cyan -NoNewline; `
-Write-Host "Rognli Checksum Tool | v2.4 |" -F Yellow -NoNewline; `
+Write-Host "Rognli Checksum Tool | v2.5 |" -F Yellow -NoNewline; `
 Write-Host " ###" -F Cyan
 Write-Host "#####################################" -ForegroundColor Cyan
 Write-Host ""
@@ -16,8 +16,15 @@ Write-Host ""
 
     Do { Write-Host " Do you wish to (C)ompare two files or (M)anually input the hash? " -F Yellow -NoNewline; $UserSelection = Read-Host }
     While (( $UserSelection -notlike "M" ) -and ($UserSelection -notlike "C"))
+    Write-Host ""
 
-# Compare hashes between two files
+# Select algorithm
+
+    Do { Write-Host " Type which type of hash algorithm (MD5, SHA1, SHA256) you wish to validate: " -F Yellow -NoNewline; $Algorithm = Read-Host }
+    While (( $Algorithm -notlike "MD5" ) -and ($Algorithm -notlike "SHA1") -and ($Algorithm -notlike "SHA256"))
+    Write-Host ""
+
+# (C)ompare hashes between two files
 
 If ($UserSelection -eq 'C') { 
 
@@ -38,13 +45,13 @@ If ($UserSelection -eq 'C') {
 
 # Execute the hash comparison 
 
-    If (( Get-FileHash $SourceFile ).Hash -eq (Get-FileHash $CompareFile).Hash )
+    If (( Get-FileHash $SourceFile -Algorithm $Algorithm ).Hash -eq ( Get-FileHash $CompareFile -Algorithm $Algorithm ).Hash )
     { Write-host "The file hash is correct. The file is safe to use." -F Green }
     Else
     { Write-Host "The file hash is a mismatch. Do NOT use this file." -F Red }
 }
 
-# Manual hash input comparison
+# (M)anual hash input comparison
 
 If ($UserSelection -eq 'M') { 
 
@@ -63,7 +70,7 @@ If ($UserSelection -eq 'M') {
 
 # Execute the hash comparison
 
-    If (( Get-FileHash $CompareFile ).Hash -eq $SourceHash )
+    If (( Get-FileHash $CompareFile -Algorithm $Algorithm ).Hash -eq $SourceHash )
     { Write-host "The file hash is correct. The file is safe to use." -F Green }
     Else
     { Write-Host "The file hash is a mismatch. Do NOT use this file." -F Red }
@@ -76,6 +83,7 @@ $Prompt = "Do you wish to (E)xit or (R)eturn? "
 
 Do {
     Write-Host $Prompt -F Cyan -NoNewline; $ExitChoice = Read-Host
+    Write-Host ""
     If ($ExitChoice -eq 'R')
     { Return }
     If ($ExitChoice -eq 'E')
